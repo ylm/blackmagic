@@ -133,7 +133,7 @@ static void cl_help(char **argv)
 	PRINT_INFO(
 		"\n"
 		"Usage: %s [-h | -l | [-vBITMASK] [-d PATH | -P NUMBER | -s SERIAL | -c TYPE]\n"
-		"  [-n NUMBER] [-j] [-C] [-t | -T] [-e] [-p] [-R[h]] [-H] [-M STRING ...]\n"
+		"  [-n NUMBER] [-j  | -A] [-C] [-t | -T] [-e] [-p] [-R[h]] [-H] [-M STRING ...]\n"
 		"  [-E | -w | -V | -r] [-a ADDR] [-S number] [file]]\n"
 		"\n"
 		"Single-shot and verbosity options [-h | -l | -vBITMASK]:\n"
@@ -156,6 +156,7 @@ static void cl_help(char **argv)
 		"\t-n <number>     Select the target device at the given position in the\n"
 		"\t                  scan chain (use the -t option to get a scan chain listing)\n"
 		"\t-j              Use JTAG instead of SWD\n"
+		"\t-A              Automatic scanning - try JTAG first, then SWD\n"
 		"\t-C              Connect to target under hardware reset\n"
 		"\t-t              Perform a chain scan and display information about the\n"
 		"\t                  conected devices\n"
