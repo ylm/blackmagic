@@ -474,7 +474,7 @@ static void adiv5_component_probe(ADIv5_AP_t *ap, uint32_t addr, const size_t re
 
 	/* CIDR preamble sanity check */
 	if ((cidr & ~CID_CLASS_MASK) != CID_PREAMBLE) {
-		DEBUG_WARN("%s%d 0x%08" PRIx32 ": 0x%08" PRIx32 " <- does not match preamble (0x%X)\n", indent + 1, num_entry,
+		DEBUG_WARN("%s%d 0x%08" PRIx32 ": 0x%08" PRIx32 " <- does not match preamble (0x%08" PRIx32 ")\n", indent + 1, num_entry,
 			addr, cidr, CID_PREAMBLE);
 		return;
 	}
