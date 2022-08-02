@@ -271,6 +271,34 @@ static const struct {
 	{0xfff, 0x00, 0, aa_end, cidc_unknown, ARM_COMPONENT_STR("end", "end")},
 };
 
+#ifdef ENABLE_DEBUG
+#define UNDEFINED_TYPE "Undefined Type AP", "Undefined CLASS AP"
+static const struct {
+	uint8_t ap_type;
+	uint8_t ap_class;
+	const char *ap_type_str;
+	const char *ap_class_str;
+} arm_ap_type_lut[] = {
+	{0x0, 0x0, "JTAG AP", "Undefined CLASS AP"},
+	{0x1, 0x8, "AHB3 AP", "MEM-AP"},
+	{0x2, 0x8, "APB2/APB3 AP", "MEM-AP"},
+	{0x3, 0x8, UNDEFINED_TYPE},
+	{0x4, 0x8, "AXI3/AXI4 AP", "MEM-AP"},
+	{0x5, 0x8, "AHB5 AP", "MEM-AP"},
+	{0x6, 0x8, "APB4 AP", "MEM-AP"},
+	{0x7, 0x0, UNDEFINED_TYPE},
+	{0x8, 0x0, UNDEFINED_TYPE},
+	{0x9, 0x0, UNDEFINED_TYPE},
+	{0xa, 0x0, UNDEFINED_TYPE},
+	{0xb, 0x0, UNDEFINED_TYPE},
+	{0xc, 0x0, UNDEFINED_TYPE},
+	{0xd, 0x0, UNDEFINED_TYPE},
+	{0xe, 0x0, UNDEFINED_TYPE},
+	{0xf, 0x0, UNDEFINED_TYPE},
+};
+
+#endif
+
 /* Used to probe for a protected SAMX5X device */
 #define SAMX5X_DSU_CTRLSTAT 0x41002100U
 #define SAMX5X_STATUSB_PROT (1U << 16U)
@@ -660,7 +688,7 @@ ADIv5_AP_t *adiv5_new_ap(ADIv5_DP_t *dp, uint8_t apsel)
 	uint32_t cfg = adiv5_ap_read(ap, ADIV5_AP_CFG);
 	DEBUG_INFO("AP %3d: IDR=%08" PRIx32 " CFG=%08" PRIx32 " BASE=%08" PRIx32 " CSW=%08" PRIx32, apsel, ap->idr, cfg,
 		ap->base, ap->csw);
-	DEBUG_INFO(" (AHB-AP var%" PRIx32 " rev%" PRIx32 ")\n", (ap->idr >> 4) & 0xf, ap->idr >> 28);
+	DEBUG_INFO(" (%s var%" PRIx32 " rev%" PRIx32 ")\n", arm_ap_type_lut[(ap->idr&0xf)].ap_type_str, (ap->idr >> 4) & 0xf, ap->idr >> 28);
 #endif
 	adiv5_ap_ref(ap);
 	return ap;
